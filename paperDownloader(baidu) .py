@@ -11,11 +11,10 @@ import selenium
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 #warning:different environment need difference setup 
-browser = webdriver.Firefox()
-browser = webdriver.Firefox(executable_path="/usr/local/bin/geckodriver", log_path="geckodriver.log")
+browser = webdriver.Chrome()
 
 #pleace enter your search paper web,now only support springer
-targetWeb = "https://xueshu.baidu.com/s?wd=life&tn=SE_baiduxueshu_c1gjeupa&cl=3&ie=utf-8&bs=fuck&f=8&rsv_bp=1&rsv_sug2=0&sc_f_para=sc_tasktype%3D%7BfirstSimpleSearch%7D&rsv_spt=3"
+targetWeb = "https://xueshu.baidu.com/s?wd=%E6%B1%A1%E6%B0%B4&rsv_bp=0&tn=SE_baiduxueshu_c1gjeupa&rsv_spt=3&ie=utf-8&f=8&rsv_sug2=1&sc_f_para=sc_tasktype%3D%7BfirstSimpleSearch%7D"
 
 #openTheXls
 paperList = xlwt.Workbook(encoding = 'utf-8')
@@ -57,8 +56,6 @@ row = 0
 for i in range (0,10):#get 10 page of the sreach site
   for num in range (4,14):#tyr to open each paper information site,and get key information
     try:
-      time.sleep(1)
-    
       #get the title
       paperInfo.write(row,0,selectXpathAndReturnElementName("/html/body/div[1]/div[4]/div[3]/div[2]/div/div[" + str(num) + "]/div[1]/h3/a"))
       #get the summary
@@ -73,7 +70,7 @@ for i in range (0,10):#get 10 page of the sreach site
     row = row + 1
   #click next page
   selectXpathAndClick("/html/body/div[1]/div[4]/div[3]/p/a[8]")
-  time.sleep(5)
+  time.sleep(3)
 
 browser.close()
 browser.quit() 
